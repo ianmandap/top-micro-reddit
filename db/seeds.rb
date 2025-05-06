@@ -1,14 +1,24 @@
-u1 = User.create(username: 'user1',  email: 'email1@example.com',  password: 'password')
-u2 = User.create(username: 'user2',  email: 'email2@example.com',  password: 'password')
+def create_user
+  User.create(username: Faker::Internet.username,  email: Faker::Internet.email,  password: 'password')
+end
 
-p1 = Post.create(
-  user: u1,
-  title: "Title",
-  body: "Example sentence."
+def create_post
+  Post.create(
+  user: create_user,
+  title: Faker::Lorem.words(number: rand(3..6)).join(' '),
+  body: Faker::Lorem.paragraphs(number: 5).join("\n\n")
 )
+end
 
-c1 = Comment.create(
-  user: u2,
-  post: p1,
-  body: "Great!"
-)
+def create_comment(user, post)
+  Comment.create(
+    user: user,
+    post: post,
+    body: Faker::Lorem.words(number: rand(3..10)).join(' ')
+  )
+end
+
+9.times { create_post }
+p1 = create_post
+
+3.times { create_comment(create_user, p1) }

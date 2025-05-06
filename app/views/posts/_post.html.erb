@@ -1,0 +1,9 @@
+<div class="min-w-0 flex-auto" id="<%= dom_id post %>">
+  <p class="text-lg font-semibold text-gray-900"><%= post.title %></p>
+  <p class="truncate text-xs/5 text-gray-500">by
+    <span><%= post.user.username %></span>
+  </p>
+  <div class="mt-3">
+    <%= post.body %>
+  </div>
+</div>
